@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Velespi{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="header">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="{% url "index" %}"><h3><b>VELESPİ</b></h3></a>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <form class="navbar-form navbar-header">
+                  <div class="form-group" style="margin-left: 300px">
+                  <input type="text" class="form-control"  placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+              <div class="nav navbar-nav navbar-right">
+                  <a class="navbar-brand" href="/">Anasayfa</a>
+                  <a class="navbar-brand" href="#">İlanlar</a>
+                  {% if user.is_authenticated %}
+                      <a class="navbar-brand" href="{% url "new_place" %}">Yeni Yer Ekle</a>
+                      <a class="navbar-brand" href="{% url "logout" %}">Çıkış yap ({{ user }})</a>
+                  {% else %}
+                      <a class="navbar-brand" href="{% url "register" %}">Kayıt</a>
+                      <a class="navbar-brand" href="{% url "login" %}">Giriş</a>
+                  {% endif %}
+              </div>
+              </div>
+          </div>
+        </div>
+        <div class="top-nav">
+            <nav class="clearfix">
+                <ul>
+                    <li><a class="active" href="/">Anasayfa</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url "new_place" %}">Yeni Yer Ekle</a></li>
+                        <li><a href="{% url "logout" %}">Çıkış Yap</a></li>
+                    {% else %}
+                        <a href="{% url "register" %}">Kayıt</a>
+                        <a href="{% url "login" %}">Giriş</a>
+                    {% endif %}
+                </ul>
+                <a href="#" id="pull">Menu</a>
+            </nav>
+        </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="content">
+            {% block content %}
+                PLACEHOLDER
+            {% endblock %}
+        </div>
+    </div>
+    <div class="footer_bg">
+        <div class="wrap">
+            <div class="footer">
+                <div class="copy">
+                    <ul><a>Linux Yaz Kampı 2016 - Django Sınıfı örnek projesidir.</a></ul>
+                </div>
+                <div class="f_nav">
+                    <ul>
+                        <li><a href="{% url "index" %}">Anasayfa</a></li>
+                        <li><a href="#">İlanlar</a></li>
+                        <li><a href="{% url "new_place" %}">Yeni Yer Ekle</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="soc_icons">
+                    <ul>
+                        <li><a class="icon1" href="#"></a></li>
+                        <li><a class="icon2" href="#"></a></li>
+                        <li><a class="icon3" href="#"></a></li>
+                        <li><a class="icon4" href="#"></a></li>
+                        <li><a class="icon5" href="#"></a></li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>
