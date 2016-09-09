@@ -18,7 +18,6 @@ class PlaceCreationForm(ModelForm):
             'telephone',
             'description',
         )
-
         widgets ={
             'coordinates': HiddenInput,
             'category': forms.Select(attrs={'class': 'form-control'}),

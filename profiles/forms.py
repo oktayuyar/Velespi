@@ -6,7 +6,7 @@ from django import forms
 
 class RegistrationForm(UserCreationForm):
     class Meta:
-        fields=["username","email"]
+        fields=["username","email","password1","password2"]
 
         widgets ={
             'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('E-Mail')}),
