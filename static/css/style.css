@@ -20,9 +20,7 @@ a{text-decoration:none;}
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
 nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
-img{
-max-width:25%;
-}
+img{max-width:100%;}
 /*end reset*/
 body {
 	font-family: 'Open Sans', sans-serif;
@@ -44,9 +42,7 @@ body {
 	padding: 2%;	
 }
 /* start logo */
-#logo{
-	float: left;
-	text-align: center;
+.logo{
 	float: left;
 }
 /* start h_right */

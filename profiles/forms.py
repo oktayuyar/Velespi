@@ -6,14 +6,15 @@ from django import forms
 
 class RegistrationForm(UserCreationForm):
     class Meta:
-        fields=["username","email","password1","password2"]
+        fields=["username","email"]
 
         widgets ={
             'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('E-Mail')}),
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder':('Username')}),
-            'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
+
+        password1= forms.PasswordInput(attrs={'class': 'form-control'})
+        password2=forms.PasswordInput(attrs={'class': 'form-control'})
 
         model =User
 

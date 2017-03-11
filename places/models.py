@@ -70,8 +70,6 @@ class Review(models.Model):
         )
     )
 
-
-
     def __str__(self):
         return smart_text(self.comment)
 
@@ -84,3 +82,4 @@ class Media(models.Model):
 
     def __str__(self):
         return smart_text(self.image.url)
+

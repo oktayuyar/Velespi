@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
         <div class="wrap">
             <div class="main">
                 <div class="panel panel-info">
@@ -13,12 +12,11 @@
                             {% csrf_token %}
                             {{ form.as_p }}
                             <div class="form_submit">
-				<input  class="btn btn-default btn-lg" type="submit"/>
+					        <input  class="btn btn-default btn-lg" type="submit"/>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-  
 {% endblock %}
