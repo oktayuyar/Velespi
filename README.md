@@ -1,1 +1,1 @@
-#Bisikletçile ve Dağcılar Sosyal Ağı
+#Bisikletçiler ve Dağcılar Sosyal Ağı
