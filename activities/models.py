@@ -51,7 +51,7 @@ class Activity(models.Model):
         return self.review_set.count()
 
 class Review(models.Model):
-    user= models.ForeignKey(settings.AUTH_USER_MODEL,related_name="aadded_review")
+    user= models.ForeignKey(settings.AUTH_USER_MODEL,related_name="added_review")
     activity = models.ForeignKey(Activity)
     comment = models.TextField(blank=True,null=True)
 

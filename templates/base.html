@@ -21,7 +21,7 @@
               </form>
               <div class="nav navbar-nav navbar-right">
                   <a class="navbar-brand" href="/">Anasayfa</a>
-                  <a class="navbar-brand" href="#">İlanlar</a>
+                  <a class="navbar-brand" href="{% url "activity" %}">Etkinlikler</a>
                   {% if user.is_authenticated %}
                       <a class="navbar-brand" href="{% url "new_place" %}">Yeni Yer Ekle</a>
                       <ul class="navbar-brand">
@@ -43,9 +43,6 @@
                           <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" placeholder="Kullanıcı Adı">Giriş</a>
                               <ul class="dropdown-menu">
-                                  <form action="" method="post">
-                                      {% csrf_token %}
-                            {{ form.as_p }}
                                   <input type="text" class="form-control">
                                   <input type="password" class="form-control">
                                       <div class="form_submit">
@@ -54,7 +51,6 @@
                                       <div class="form-group">
                                       <div class="col-lg-12 col-md-offset-3">
                                           <a href="{% url "register" %} " style="color: #000000" class="link">Uye Ol</a>
-                                          <form>
                                       </div>
                                   </div>
                                   </form>
@@ -70,6 +66,7 @@
             <nav class="clearfix">
                 <ul>
                     <li><a class="active" href="/">Anasayfa</a></li>
+                    <li><a href="{% url "activity" %}">Etkinlikler</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url "new_place" %}">Yeni Yer Ekle</a></li>
                         <li><a href="{% url "logout" %}">Çıkış Yap</a></li>
@@ -103,14 +100,14 @@
         <div class="wrap">
             <div class="footer">
                 <div class="copy">
-                    <ul><a class="icon1" href="{% url "index" %}">Velespi Bisiklet Ağı </a></ul>
+                    <ul><a class="icon1" href="{% url "index" %}">Velespi Bisiklet ve Dağcılık Sosyal Ağı </a></ul>
                 </div>
                 <div class="f_nav">
                     <ul>
                         <li><a href="{% url "index" %}">Anasayfa</a></li>
-                        <li><a href="#">İlanlar</a></li>
+                        <li><a href="activity">Etkinlikler</a></li>
                         <li><a href="{% url "new_place" %}">Yeni Yer Ekle</a></li>
-                        <li><a href="#">İletişim</a></li>
+                        <li><a href="#  ">İletişim</a></li>
                     </ul>
                 </div>
                 <div class="soc_icons">

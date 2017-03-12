@@ -21,6 +21,7 @@ from django.views.static import serve
 
 from places.views import index,detail ,new_place , new_media,new_review,like_place
 from profiles.views import register, login, logout
+from activities.views import activity,new_activity ,like_activity,activity_new_review,activity_new_media,activity_detail
 
 
 
@@ -30,11 +31,19 @@ urlpatterns = [
     url(r'^register$',register,name="register"),
     url(r'^login$',login,name="login"),
     url(r'^logout$',logout,name="logout"),
+
     url(r'^places/(?P<id>\d+)$', detail, name='place_detail'),
     url(r'^places/(?P<place_id>\d+)/new-media$', new_media, name='new_media'),
     url(r'^places/(?P<place_id>\d+)/new-review$', new_review, name='new_review'),
     url(r'^places/(?P<place_id>\d+)/like$', like_place, name='like_place'),
     url(r'^new-place$', new_place, name="new_place"),
+
+    url(r'^activity',activity,name="activity"),
+    url(r'^new_activity$', new_activity, name="new_activity"),
+    url(r'^activity/(?P<activity_id>\d+)/activity_new_media$', activity_new_media, name='activity_new_media'),
+    url(r'^activity/(?P<activity_id>\d+)/activity_new_review$', activity_new_review, name='activity_new_review'),
+    url(r'^activity/(?P<activity_id>\d+)/like$', like_activity, name='like_activity'),
+    url(r'^post/(?P<id>[0-9]+)/$', activity_detail, name='activity_detail'),
 
 ]
 

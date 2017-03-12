@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 
         <div class="wrap">
@@ -7,8 +8,8 @@
                     <div class="contact_left">
                         <div class="contact-form">
                             <div class="panel-form">
-                                <form action="" method="post">
-                                    <h3>Yeni Yer Bildirimi</h3>
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    <h3>Yeni Etkinlik Oluşturma</h3>
                                     <div class="form-enterances ">
                                         {% csrf_token %}
                                         {{ form.as_p }}
@@ -18,7 +19,7 @@
                     </div>
                     <div class="contact_right">
                         <div class="contact-form">
-                            <h3>Haritadan Yer Seçiniz</h3>
+                            <h3>Rota Belirlemede Yararlanabilirsiniz</h3>
                             <div id="map"></div>
                         </div>
                         <div class="form_submit">
@@ -30,8 +31,8 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
+
 {% block js %}
 <script>
 var map = L.map('map').setView([40.705601,31.678499], 3);
@@ -42,15 +43,5 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 var marker;
 
-map.on('click', function(e){
-    if (marker) {
-    	marker.setLatLng(e.latlng);
-    } else {
-    	marker = new L.marker(e.latlng).addTo(map);
-    }
-
-    var coordinates = e.latlng.lat + ", " + e.latlng.lng;
-    document.getElementById('id_coordinates').value = coordinates;
-});
 </script>
 {% endblock %}

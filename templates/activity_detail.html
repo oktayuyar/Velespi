@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3>{{ activity.name }}</h3>
+    <h3>Fotoğraflar</h3>
+    {% for media in activity.media_set.all %}
+        <img src="{{ media }}">
+    {% empty %}
+        <p>
+            Bu yerin hiç fotoğrafı yok.
+        </p>
+    {% endfor %}
+    <hr>
+    <p>
+        <span id="like-count">{{ activity.likes.count }}</span> kişi beğendi.
+
+        {% if user in activity.likes.all %}
+        <a id="like" href="{% url "like_activity" activity.id %}">Beğenmekten vazgeç</a>
+        {% else %}
+        <a id="like" href="{% url "like_activity" activity.id %}">Beğen</a>
+        {% endif %}
+    </p>
+    <hr>
+    <p>
+        {{ activity.description|linebreaksbr }}
+    </p>
+    <hr>
+    {% if activity.review_count > 0 %}
+        <h5>Reviews</h5>
+        {% for review in activity.review_set.all %}
+        <blockquote>
+            {{ review.comment }} 
+            ({{ review.vote }})
+            <small>
+                {{ review.user.username }}
+            </small>
+        </blockquote>
+        {% endfor %}
+    {% endif %}
+
+    <p>
+        <a href="{% url "activity_new_media" activity.id %}">Fotoğraf ekle</a>
+        <a href="{% url "activity_new_review" activity.id %}">Yorum ekle</a>
+    </p>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+$('#like').on('click', function (event) {
+    console.log('deneme');
+    $.getJSON(
+        $("#like").attr('href'),
+        function (response) {
+            $('#like-count').html(response.count);
+
+            if (response.action === 'like') {
+                $('#like').html('Beğenmekten vazgeç');
+            } else {
+                $('#like').html('Beğen');
+            }
+        }
+    );
+    event.preventDefault();
+});
+</script>
+{% endblock %}
