@@ -36,22 +36,24 @@
                               </ul>
                           </li>
                       </ul>
-                  {% else %}
+                  {% elif not user.is_authenticated %}
                   <a class="navbar-brand" href="{% url "register" %}">Kayıt</a>
                   <a class="navbar-brand" href="{% url "login" %}">Giriş</a>
                   <ul class="navbar-brand">
                           <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" placeholder="Kullanıcı Adı">Giriş</a>
                               <ul class="dropdown-menu">
-                                  <input type="text" class="form-control">
-                                  <input type="password" class="form-control">
-                                      <div class="form_submit">
-                                          <input class="btn btn-default btn-lg" type="submit"/>
-                                      </div>
-                                      <div class="form-group">
-                                      <div class="col-lg-12 col-md-offset-3">
-                                          <a href="{% url "register" %} " style="color: #000000" class="link">Uye Ol</a>
-                                      </div>
+                                  <form action="{% url "login" %}" method="post">
+                                      {% csrf_token %}
+                                    <input type="text" name="username" class="form-control">
+                                    <input type="password" name="password"  class="form-control">
+                                    <div class="form_submit">
+                                    <input  class="btn btn-default btn-lg" type="submit"/>
+                                    </div>
+                                     <div class="form-group">
+                                     <div class="col-lg-12 col-md-offset-3">
+                                         <a href="{% url "register" %} " style="color: #000000" class="link">Uye Ol</a>
+                                     </div>
                                   </div>
                                   </form>
                               </ul>
@@ -113,7 +115,7 @@
                 <div class="soc_icons">
                     <ul>
                         <li><a class="icon1" href="#"></a></li>
-                        <li><a class="icon2" href="#"></a></li>
+       action={% url "index" %}                  <li><a class="icon2" href="#"></a></li>
                         <li><a class="icon3" href="#"></a></li>
                         <li><a class="icon4" href="#"></a></li>
                         <li><a class="icon5" href="#"></a></li>

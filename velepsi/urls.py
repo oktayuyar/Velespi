@@ -40,10 +40,10 @@ urlpatterns = [
 
     url(r'^activity',activity,name="activity"),
     url(r'^new_activity$', new_activity, name="new_activity"),
-    url(r'^activity/(?P<activity_id>\d+)/activity_new_media$', activity_new_media, name='activity_new_media'),
-    url(r'^activity/(?P<activity_id>\d+)/activity_new_review$', activity_new_review, name='activity_new_review'),
-    url(r'^activity/(?P<activity_id>\d+)/like$', like_activity, name='like_activity'),
-    url(r'^post/(?P<id>[0-9]+)/$', activity_detail, name='activity_detail'),
+    url(r'^activities/(?P<activity_id>\d+)/activity_new_media$', activity_new_media, name='activity_new_media'),
+    url(r'^activities/(?P<activity_id>\d+)/activity_new_review$', activity_new_review, name='activity_new_review'),
+    url(r'^activities/(?P<activity_id>\d+)/like$', like_activity, name='like_activity'),
+    url(r'^activities/(?P<id>[0-9]+)/$', activity_detail, name='activity_detail'),
 
 ]
 
