@@ -23,7 +23,8 @@
                   <a class="navbar-brand" href="/">Anasayfa</a>
                   <a class="navbar-brand" href="{% url "activity" %}">Etkinlikler</a>
                   {% if user.is_authenticated %}
-                      <a class="navbar-brand" href="{% url "new_place" %}">Yeni Yer Ekle</a>
+                    <a class="navbar-brand"  href="{% url "new_activity" %}">Etkinlik Ekle</a>
+                      <a class="navbar-brand" href="{% url "new_place" %}">Yer Ekle</a>
                       <ul class="navbar-brand">
                           <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -37,11 +38,9 @@
                           </li>
                       </ul>
                   {% elif not user.is_authenticated %}
-                  <a class="navbar-brand" href="{% url "register" %}">Kayıt</a>
-                  <a class="navbar-brand" href="{% url "login" %}">Giriş</a>
                   <ul class="navbar-brand">
                           <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" placeholder="Kullanıcı Adı">Giriş</a>
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" placeholder="Kullanıcı Adı">Giriş</a>
                               <ul class="dropdown-menu">
                                   <form action="{% url "login" %}" method="post">
                                       {% csrf_token %}
@@ -52,7 +51,7 @@
                                     </div>
                                      <div class="form-group">
                                      <div class="col-lg-12 col-md-offset-3">
-                                         <a href="{% url "register" %} " style="color: #000000" class="link">Uye Ol</a>
+                                         <a href="{% url "register" %} " style="color: #000000" class="link">Üye Ol</a>
                                      </div>
                                   </div>
                                   </form>
@@ -70,9 +69,10 @@
                     <li><a class="active" href="/">Anasayfa</a></li>
                     <li><a href="{% url "activity" %}">Etkinlikler</a></li>
                     {% if user.is_authenticated %}
+                        <li><a href="{% url "new_activity" %}">Yeni Etkinlik Ekle</a></li>
                         <li><a href="{% url "new_place" %}">Yeni Yer Ekle</a></li>
                         <li><a href="{% url "logout" %}">Çıkış Yap</a></li>
-                    {% else %}
+                    {% elif not user.is_authenticated %}
                         <a href="{% url "register" %}">Kayıt</a>
                         <a href="{% url "login" %}">Giriş</a>
                     {% endif %}
@@ -115,7 +115,7 @@
                 <div class="soc_icons">
                     <ul>
                         <li><a class="icon1" href="#"></a></li>
-       action={% url "index" %}                  <li><a class="icon2" href="#"></a></li>
+                        <li><a class="icon2" href="#"></a></li>
                         <li><a class="icon3" href="#"></a></li>
                         <li><a class="icon4" href="#"></a></li>
                         <li><a class="icon5" href="#"></a></li>
