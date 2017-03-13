@@ -1,49 +1,65 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class=" col-md-9 col-md-push-2 col-xs-12">
+    <div class="row">
     <h3>{{ activity.name }}</h3>
     <h3>Fotoğraflar</h3>
+
+
     {% for media in activity.media_set.all %}
-        <img src="{{ media }}">
+    <img src="{{ media }}">
+
     {% empty %}
         <p>
             Bu yerin hiç fotoğrafı yok.
         </p>
     {% endfor %}
+    </div>
+    <div class="row pull-right">
     <p>
         <span id="like-count">{{ activity.likes.count }}</span> kişi beğendi.
-
+        {% csrf_token %}
         {% if user in activity.likes.all %}
         <a id="like" href="{% url "like_activity" activity.id %}">Beğenmekten vazgeç</a>
         {% else %}
         <a id="like" href="{% url "like_activity" activity.id %}">Beğen</a>
         {% endif %}
     </p>
+        </div>
+
+    <div class="row">
     <hr>
     <p>
-        {{ activity.description|linebreaksbr }}
+        {{ activity.description|linebreaksbr }}<br>
+        <hr>
+        {{ activity.route|linebreaksbr }}
     </p>
     <hr>
-    {% if activity.review_count > 0 %}
-        <h5>Reviews</h5>
-        {% for review in activity.review_set.all %}
-        <blockquote>
-            {{ review.comment }} 
-            ({{ review.vote }})
-            <small>
-                {{ review.user.username }}
-            </small>
-        </blockquote>
-        {% endfor %}
-    {% endif %}
+        <span style="font-size:16px;font-weight:bold;">Yorumlar</span><br>
+        <div id="comments" data-url="{% url "comments" activity.id %}">
 
-    <p>
+        </div>
         <a href="{% url "activity_new_media" activity.id %}">Fotoğraf ekle</a>
-        <a href="{% url "activity_new_review" activity.id %}">Yorum ekle</a>
+        <a href="{% url "comments" activity.id %}">yorumlar</a>
     </p>
 
 
+
+     <form id="commentForm" action="#" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="activityId" value="{{activity.id}}">
+        	{% csrf_token %}
+        <div class="form-group">
+            <div class="col-md-10 col-xs-10">
+                <textarea id="comment" class="form-control" placeholder="Yorum yaz..." name="comment"></textarea>
+            </div>
+            <div class="col-md-2 col-xs-1 col-md-pull-1 col-xs-pull-3" style="margin-top:15px;">
+                <button id="addComment" data-url="{% url "activity_new_review" activity.id %}" style="background:transparent;border:none;color:#29487d;"><i class="fa fa-telegram fa-lg" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 {% block js %}
 <script>
@@ -62,6 +78,22 @@ $('#like').on('click', function (event) {
         }
     );
     event.preventDefault();
+});
+$("#comments").load( $("#comments").data('url'));
+
+$('#addComment').on('click', function (e) {
+    e.preventDefault();
+    if($('#comment').val() == ""){
+    console.log('hata yorum boş');
+    }else{
+    var url = $(this).data('url');
+    var form = $( '#commentForm' ).serialize();
+    console.log(form);
+    $.post(url,form, function(data){
+       $("#comments").load( $("#comments").data('url'));
+       $('#comment').val('');
+    });
+    }
 });
 </script>
 {% endblock %}

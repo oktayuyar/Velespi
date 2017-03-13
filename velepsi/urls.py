@@ -21,7 +21,7 @@ from django.views.static import serve
 
 from places.views import index,detail ,new_place , new_media,new_review,like_place
 from profiles.views import register, login, logout
-from activities.views import activity,new_activity ,like_activity,activity_new_review,activity_new_media,activity_detail
+from activities.views import activity,new_activity ,like_activity,activity_new_review,activity_new_media,activity_detail,activity_comment
 
 
 
@@ -44,6 +44,8 @@ urlpatterns = [
     url(r'^activities/(?P<activity_id>\d+)/activity_new_review$', activity_new_review, name='activity_new_review'),
     url(r'^activities/(?P<activity_id>\d+)/like$', like_activity, name='like_activity'),
     url(r'^activities/(?P<id>[0-9]+)/$', activity_detail, name='activity_detail'),
+
+    url(r'^comments/(?P<id>[0-9]+)/$', activity_comment, name='comments'),
 
 ]
 

@@ -27,6 +27,15 @@ def activity_detail(request,id):
         }
     )
 
+def activity_comment(request,id):
+    return render(
+        request,
+        "comments.html",
+        {
+            "activity": get_object_or_404(Activity,id=id),
+        }
+    )
+
 @login_required(login_url='login')
 def new_activity(request):
     form = ActivityCreationForm()
