@@ -55,6 +55,8 @@ class Review(models.Model):
     activity = models.ForeignKey(Activity)
     comment = models.TextField(blank=True,null=True)
 
+    def __str__(self):
+        return smart_text(self.comment)
 
 
 class Media(models.Model):
