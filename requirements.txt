@@ -1,0 +1,5 @@
+Django==1.9
+Pillow==3.3.0
+freeze==1.0.10
+six==1.10.0
+
