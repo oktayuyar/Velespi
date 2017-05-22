@@ -1,9 +1,17 @@
 import json
+from django.http.response import Http404
 
 from django.shortcuts import render ,get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+
+
+from  places.serializers import PlaceSerializer
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 
 from  places.models import Place
 from places.forms import PlaceCreationForm, MediaCreationForm,ReviewCreationForm
@@ -117,6 +125,23 @@ def like_place(request, place_id):
 
 
 
+class PlaceList(APIView):
+    def get(self, request, format=None):
+        places = Place.objects.all()
+        serializer = PlaceSerializer(places, many=True)
+
+        return Response(serializer.data)
 
 
+class PlaceSingle(APIView):
 
+    def get_object(self, pk):
+        try:
+            return Place.objects.get(pk=pk)
+        except Place.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        place = self.get_object(pk)
+        place = PlaceSerializer(place)
+        return Response(place.data)

@@ -1,9 +1,16 @@
 import json
+from django.http.response import Http404
 
 from django.shortcuts import render ,get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+
+
+from  places.serializers import PlaceSerializer
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from  activities.models import Activity
 from activities.forms import ActivityCreationForm, MediaCreationForm,ReviewCreationForm
@@ -127,4 +134,23 @@ def like_activity(request, activity_id):
 
 
 
+class ActivityList(APIView):
+    def get(self, request, format=None):
+        activities = Activity.objects.all()
+        serializer = PlaceSerializer(activities, many=True)
 
+        return Response(serializer.data)
+
+
+class ActivitySingle(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Activity.objects.get(pk=pk)
+        except Activity.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        activity = self.get_object(pk)
+        activity = PlaceSerializer(activity)
+        return Response(activity.data)
