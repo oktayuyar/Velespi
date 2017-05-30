@@ -22,17 +22,17 @@ class ActivityCreationForm(ModelForm):
 
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': ('Activity Name')
+                'placeholder': ('Activity Adı')
             } ),
 
             'route': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': ('Route')
+                'placeholder': ('Rota')
             } ),
 
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': ('Enter a description')
+                'placeholder': ('Açıklama Girin')
             }
             ),
 
@@ -42,7 +42,7 @@ class ActivityCreationForm(ModelForm):
 
             'telephone': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder':('Telephone')
+                'placeholder':('Telefon')
             }
             )
         }

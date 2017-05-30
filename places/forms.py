@@ -25,19 +25,19 @@ class PlaceCreationForm(ModelForm):
             'has_wifi': forms.CheckboxInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': ('Place Name')
+                'placeholder': ('Yer İsmi')
             }
             ),
 
             'telephone': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder':('Telephone')
+                'placeholder':('Telefon')
             }
             ),
 
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': ('Enter a description')
+                'placeholder': ('Açıklama Girin')
             }
             )
         }

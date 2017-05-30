@@ -5,9 +5,9 @@ from django.shortcuts import render ,get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from rest_framework import status
 
-
-from  places.serializers import PlaceSerializer
+from  activities.serializers import ActivitySerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -137,9 +137,15 @@ def like_activity(request, activity_id):
 class ActivityList(APIView):
     def get(self, request, format=None):
         activities = Activity.objects.all()
-        serializer = PlaceSerializer(activities, many=True)
-
+        serializer = ActivitySerializer(activities, many=True)
         return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ActivitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ActivitySingle(APIView):
@@ -152,5 +158,5 @@ class ActivitySingle(APIView):
 
     def get(self, request, pk, format=None):
         activity = self.get_object(pk)
-        activity = PlaceSerializer(activity)
+        activity = ActivitySerializer(activity)
         return Response(activity.data)
