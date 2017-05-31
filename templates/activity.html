@@ -4,10 +4,12 @@
 <div class=" col-md-9 col-md-push-2 col-xs-12">
     <div class="row">
         {% for activity in activities %}
+        <p>
+        <h1><a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h1></p>
         {% if activity.media_set.all|length != 0 %}
         <div>
-            <p>
-            <h1><a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h1></p>
+
+
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -18,9 +20,7 @@
                     <li data-target="#myCarousel" data-slide-to="0"></li>
                     {% endif %}
                     {% endfor %}
-                    <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
-                    <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
-                </ol>
+                    </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
@@ -35,13 +35,7 @@
                     </div>
                     {% endif %}
                     {% endfor %}
-                    <!--<div class="item">-->
-                    <!--<img src="https://www.w3schools.com/bootstrap/chicago.jpg" alt="Chicago" style="width:100%;">-->
-                    <!--</div>-->
 
-                    <!--<div class="item">-->
-                    <!--<img src="https://www.w3schools.com/bootstrap/ny.jpg" alt="New york" style="width:100%;">-->
-                    <!--</div>-->
                 </div>
 
                 <!-- Left and right controls -->
