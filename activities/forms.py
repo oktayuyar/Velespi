@@ -22,7 +22,7 @@ class ActivityCreationForm(ModelForm):
 
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': ('Activity Adı')
+                'placeholder': ('Etkinlik Adı')
             } ),
 
             'route': forms.TextInput(attrs={

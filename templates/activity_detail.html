@@ -3,10 +3,7 @@
 {% block content %}
 <div class=" col-md-9 col-md-push-2 col-xs-12">
     <div class="row">
-    <h3>{{ activity.name }}</h3>
-    <h3>Fotoğraflar</h3>
-
-
+    <h3><center>{{ activity.name }}</center></h3><br>
 
         {% if activity.media_set.all|length != 0 %}
         <div>
@@ -71,9 +68,9 @@
     <div class="row">
     <hr>
     <p>
-        {{ activity.description|linebreaksbr }}<br>
+        <h1>Etkinlik Detayı : {{ activity.description|linebreaksbr }}</h1>
         <hr>
-        {{ activity.route|linebreaksbr }}
+        <h1>Etkinlik Rotası : {{ activity.route|linebreaksbr }}</h1>
     </p>
     <hr>
         <span style="font-size:16px;font-weight:bold;">Yorumlar</span><br>
@@ -81,7 +78,7 @@
 
         </div>
         <a href="{% url "activity_new_media" activity.id %}">Fotoğraf ekle</a>
-        <a href="{% url "comments" activity.id %}">yorumlar</a>
+
     </p>
 
 
@@ -103,8 +100,10 @@
 {% endblock %}
 {% block js %}
 <script>
+var login={{ user.is_authenticated }};
 $('#like').on('click', function (event) {
-    console.log('deneme');
+    if(login){
+
     $.getJSON(
         $("#like").attr('href'),
         function (response) {
@@ -117,8 +116,14 @@ $('#like').on('click', function (event) {
             }
         }
     );
+    }
+    else{
+        alert("Lütfen kullanıcı girişi yapınız");
+    }
     event.preventDefault();
 });
+
+
 $("#comments").load( $("#comments").data('url'));
 
 $('#addComment').on('click', function (e) {

@@ -1,23 +1,76 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class=" col-md-9 col-md-push-2 col-xs-12">
+    <div class="row">
+    <h3><center>{{ place.name }}<center></center></h3><br>
+        {% if place.media_set.all|length != 0 %}
+        <div>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for media in place.media_set.all %}
+                    {% if forloop.counter == 1 %}
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    {% else %}
+                    <li data-target="#myCarousel" data-slide-to="0"></li>
+                    {% endif %}
+                    {% endfor %}
+                    </ol>
 
-    <h3>{{ place.name }}</h3>
-    <p>
-        <span id="like-count">{{ place.likes.count }}</span> kişi beğendi.
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    {% for media in place.media_set.all %}
+                    {% if forloop.counter == 1 %}
+                    <div class="item active">
+                        <img src="{{media}}" alt="Media" style="width:100%;">
+                    </div>
+                    {% else %}
+                    <div class="item">
+                        <img src="{{media}}" alt="Media" style="width:100%;">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
 
-        {% if user in place.likes.all %}
-        <a id="like" href="{% url "like_place" place.id %}">Beğenmekten vazgeç</a>
-        {% else %}
-        <a id="like" href="{% url "like_place" place.id %}">Beğen</a>
-        {% endif %}
-    </p>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            {% else %}
+            <p>
+                Bu yerin hiç fotoğrafı yok.
+            </p>
+            {% endif %}
+            </div>
+
+    <div class="row pull-right">
+        <p>
+            <span id="like-count">{{ place.likes.count }}</span> kişi beğendi.
+            {% csrf_token %}
+            {% if user in place.likes.all %}
+            <a id="like" href="{% url "like_place" place.id %}">Beğenmekten vazgeç</a>
+            {% else %}
+            <a id="like" href="{% url "like_place" place.id %}">Beğen</a>
+            {% endif %}
+        </p>
+    </div>
+    <hr>
     <div id="map"></div>
+    <div>
     <p>
-        {{ place.description|linebreaksbr }}
-    </p>
+        <br><h1>Mekanın Açıklaması : {{ place.description|linebreaksbr }}</h1>
+    </p><hr>
+    </div>
     {% if place.review_count > 0 %}
-        <h3>Reviews</h3>
+        <span style="font-size:16px;font-weight:bold;">Yorumlar</span><br>
         {% for review in place.review_set.all %}
         <blockquote>
             {{ review.comment }} 
@@ -28,21 +81,14 @@
         </blockquote>
         {% endfor %}
     {% endif %}
-
-    <h3>Fotoğraflar</h3>
-    {% for media in place.media_set.all %}
-        <img src="{{ media }}">
-    {% empty %}
-        <p>
-            Bu yerin hiç fotoğrafı yok.
-        </p>
-    {% endfor %}
-
+    <hr>
     <p>
         <a href="{% url "new_media" place.id %}">Fotoğraf ekle</a>
         <a href="{% url "new_review" place.id %}">Yorum ekle</a>
     </p>
+</div>
 
+</div>
 {% endblock %}
 {% block js %}
 <script>
@@ -59,8 +105,10 @@ var marker = L.marker([{{ place.coordinates }}]).addTo(map)
         '</a>'
     );
 
+var login={{ user.is_authenticated }};
 $('#like').on('click', function (event) {
-    console.log('deneme');
+    if(login){
+
     $.getJSON(
         $("#like").attr('href'),
         function (response) {
@@ -73,7 +121,12 @@ $('#like').on('click', function (event) {
             }
         }
     );
+    }
+    else{
+        alert("Lütfen kullanıcı girişi yapınız");
+    }
     event.preventDefault();
 });
+
 </script>
 {% endblock %}

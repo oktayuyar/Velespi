@@ -5,7 +5,7 @@
     <div class="row">
         {% for activity in activities %}
         <p>
-        <h1><a href="{% url "activity_detail" activity.id %}">{{ activity.name }}</a></h1></p>
+        <h1><a href="{% url "activity_detail" activity.id %}"><center>{{ activity.name }}<center></center></a></h1></p><br>
         {% if activity.media_set.all|length != 0 %}
         <div>
 
@@ -27,11 +27,11 @@
                     {% for media in activity.media_set.all %}
                     {% if forloop.counter == 1 %}
                     <div class="item active">
-                        <img src="{{media}}" alt="Los Angeles" style="width:100%;">
+                        <img src="{{media}}" alt="Media" style="width:100%;">
                     </div>
                     {% else %}
                     <div class="item">
-                        <img src="{{media}}" alt="Los Angeles" style="width:100%;">
+                        <img src="{{media}}" alt="Media" style="width:100%;">
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -64,7 +64,10 @@
 {% endblock %}
 {% block js %}
 <script>
+var login='{{ user.is_authenticated }}';
 $('#like').on('click', function (event) {
+    if(login){
+
     $.getJSON(
         $("#like").attr('href'),
         function (response) {
@@ -77,6 +80,10 @@ $('#like').on('click', function (event) {
             }
         }
     );
+    }
+    else{
+        alert("Lütfen kullanıcı girişi yapınız");
+    }
     event.preventDefault();
 });
 

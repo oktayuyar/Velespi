@@ -42,28 +42,9 @@
                   {% elif not user.is_authenticated %}
                   <a class="navbar-brand" href="{% url "index" %}">Anasayfa</a>
                   <a class="navbar-brand" href="{% url "activity" %}">Etkinlikler</a>
-                  <!--<ul class="navbar-brand">-->
-                          <!--<li class="dropdown">-->
-                                  <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" placeholder="Kullanıcı Adı">Giriş</a>-->
-                              <!--<ul class="dropdown-menu">-->
-                                  <!--<form action="{% url "login" %}" method="post">-->
-                                      <!--{% csrf_token %}-->
-                                    <!--<input type="text" name="username" class="form-control">-->
-                                    <!--<input type="password" name="password"  class="form-control">-->
-                                    <!--<div class="form_submit">-->
-                                    <!--<input  class="btn btn-info btn-lg" type="submit" value="Giriş"/>-->
-                                    <!--</div>-->
-                                     <!--<div class="form-group">-->
-                                     <!--<div class="col-lg-12 col-md-offset-3">-->
-                                         <!--<a href="{% url "register" %} " style="color: #000000" class="link">Üye Ol</a>-->
-                                     <!--</div>-->
-                                  <!--</div>-->
-                                  <!--</form>-->
-                              <!--</ul>-->
-                              <!--</li>-->
-                      <!--</ul>-->
+
                               <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Giriş Yap</b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
 				<li>
 					 <div class="row">
