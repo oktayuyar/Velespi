@@ -5,15 +5,15 @@ from django.shortcuts import render ,get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from rest_framework import status
 
-
-from  places.serializers import PlaceSerializer
+from  places.serializers import PlaceSerializer,CategorySerializer,MediaSerializer,ReviewSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-from  places.models import Place
+from  places.models import Place,Media,Review,Category
 from places.forms import PlaceCreationForm, MediaCreationForm,ReviewCreationForm
 
 
@@ -129,8 +129,15 @@ class PlaceList(APIView):
     def get(self, request, format=None):
         places = Place.objects.all()
         serializer = PlaceSerializer(places, many=True)
-
         return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = PlaceSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class PlaceSingle(APIView):
@@ -145,3 +152,52 @@ class PlaceSingle(APIView):
         place = self.get_object(pk)
         place = PlaceSerializer(place)
         return Response(place.data)
+
+class CategoryList(APIView):
+    def get(self, request, format=None):
+        categories = Category.objects.all()
+        serializer =CategorySerializer (categories, many=True)
+        return Response(serializer.data)
+
+
+class CategorySingle(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        category = self.get_object(pk)
+        category = CategorySerializer(category)
+        return Response(category.data)
+
+
+
+class ReviewList(APIView):
+    def get(self, request, format=None):
+        reviews = Review.objects.all()
+        serializer =ReviewSerializer (reviews, many=True)
+        return Response(serializer.data)
+
+
+class ReviewActivity(APIView):
+    def get(self, request,pk, format=None):
+        reviews = Review.objects.filter(place_id=pk)
+        serializer =ReviewSerializer (reviews, many=True)
+        return Response(serializer.data)
+
+
+class MediaList(APIView):
+    def get(self, request, format=None):
+        medias = Media.objects.all()
+        serializer =MediaSerializer (medias, many=True)
+        return Response(serializer.data)
+
+class MediaActivity(APIView):
+    def get(self, request,pk, format=None):
+        media = Media.objects.filter(place_id=pk)
+        serializer =MediaSerializer (media, many=True)
+        return Response(serializer.data)
+
