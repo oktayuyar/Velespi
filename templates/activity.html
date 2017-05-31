@@ -8,8 +8,6 @@
         <h1><a href="{% url "activity_detail" activity.id %}"><center>{{ activity.name }}<center></center></a></h1></p><br>
         {% if activity.media_set.all|length != 0 %}
         <div>
-
-
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">

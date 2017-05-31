@@ -74,14 +74,11 @@
     </p>
     <hr>
         <span style="font-size:16px;font-weight:bold;">Yorumlar</span><br>
-        <div id="comments" data-url="{% url "comments" activity.id %}">
+        <div id="comments" data-url="{% url "comments" activity.id %}" data-url2="{% url "login"%}">
 
         </div>
         <a href="{% url "activity_new_media" activity.id %}">Fotoğraf ekle</a>
-
     </p>
-
-
 
      <form id="commentForm" action="#" method="post" enctype="multipart/form-data">
         <input type="hidden" id="activityId" value="{{activity.id}}">
@@ -95,14 +92,15 @@
             </div>
         </div>
         </form>
+
     </div>
 </div>
 {% endblock %}
 {% block js %}
 <script>
-var login={{ user.is_authenticated }};
+var login='{{ user.is_authenticated }}';
 $('#like').on('click', function (event) {
-    if(login){
+    if(login != 'False'){
 
     $.getJSON(
         $("#like").attr('href'),
@@ -118,7 +116,7 @@ $('#like').on('click', function (event) {
     );
     }
     else{
-        alert("Lütfen kullanıcı girişi yapınız");
+    location.href=$("#comments").data('url2');
     }
     event.preventDefault();
 });
@@ -128,17 +126,23 @@ $("#comments").load( $("#comments").data('url'));
 
 $('#addComment').on('click', function (e) {
     e.preventDefault();
-    if($('#comment').val() == ""){
-    console.log('hata yorum boş');
-    }else{
-    var url = $(this).data('url');
-    var form = $( '#commentForm' ).serialize();
-    console.log(form);
-    $.post(url,form, function(data){
-       $("#comments").load( $("#comments").data('url'));
-       $('#comment').val('');
-    });
+    if(login != 'False'){
+        if($('#comment').val() == ""){
+        console.log('hata yorum boş');
+        }else{
+        var url = $(this).data('url');
+        var form = $( '#commentForm' ).serialize();
+        console.log(form);
+        $.post(url,form, function(data){
+           $("#comments").load( $("#comments").data('url'));
+           $('#comment').val('');
+        });
+        }
     }
+    else{
+    alert("Yorum yapabilmek için kullanıcı girişi yapınız.");
+    }
+
 });
 </script>
 {% endblock %}

@@ -1,11 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>{{ place }} için yeni bir yorum yekle:</h3>
+        <div class="wrap">
+            <div class="main">
+                <div class="contact">
+                    <div class="contact_left">
+                        <div class="contact-form">
+                            <div class="panel-form">
+								<h3>{{ place }}  için yeni bir yorum yekle:</h3>
 
-<form action="" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Ekle" />
-</form>
+								<form action="" method="post" enctype="multipart/form-data">
+									{% csrf_token %}
+									{{ form.as_p }}
+									<input class="btn btn-primary btn-lg" type="submit" value="Ekle" />
+								</form>
+								</div>
+                    		<div class="clear"></div>
+                		</div>
+            		</div>
+        		</div>
+    		</div>
+		</div>
 {% endblock %}

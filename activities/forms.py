@@ -20,7 +20,7 @@ class ActivityCreationForm(ModelForm):
 
         widgets ={
 
-            'name': forms.TextInput(attrs={
+            'name': forms.TextInput(attrs={ 'name' : 'Ad',
                 'class': 'form-control',
                 'placeholder': ('Etkinlik Adı')
             } ),
