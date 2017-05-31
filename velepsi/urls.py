@@ -49,6 +49,7 @@ urlpatterns = [
 
     url(r"^api/", include("places.urls")),
     url(r"^api/", include("activities.urls")),
+
 ]
 
 if settings.DEBUG:

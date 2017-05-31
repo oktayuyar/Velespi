@@ -7,12 +7,12 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 
-from  activities.serializers import ActivitySerializer
+from  activities.serializers import ActivitySerializer,ReviewSerializer,MediaSerializer,CategorySerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from  activities.models import Activity
+from  activities.models import Activity,Review,Media,Category
 from activities.forms import ActivityCreationForm, MediaCreationForm,ReviewCreationForm
 
 def activity(request):
@@ -160,3 +160,53 @@ class ActivitySingle(APIView):
         activity = self.get_object(pk)
         activity = ActivitySerializer(activity)
         return Response(activity.data)
+
+
+class CategoryList(APIView):
+    def get(self, request, format=None):
+        categories = Category.objects.all()
+        serializer =CategorySerializer (categories, many=True)
+        return Response(serializer.data)
+
+
+class CategorySingle(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        category = self.get_object(pk)
+        category = CategorySerializer(category)
+        return Response(category.data)
+
+
+
+class ReviewList(APIView):
+    def get(self, request, format=None):
+        reviews = Review.objects.all()
+        serializer =ReviewSerializer (reviews, many=True)
+        return Response(serializer.data)
+
+
+class ReviewActivity(APIView):
+    def get(self, request,pk, format=None):
+        reviews = Review.objects.filter(activity_id=pk)
+        serializer =ReviewSerializer (reviews, many=True)
+        return Response(serializer.data)
+
+
+class MediaList(APIView):
+    def get(self, request, format=None):
+        medias = Media.objects.all()
+        serializer =MediaSerializer (medias, many=True)
+        return Response(serializer.data)
+
+class MediaActivity(APIView):
+    def get(self, request,pk, format=None):
+        media = Media.objects.filter(activity_id=pk)
+        serializer =MediaSerializer (media, many=True)
+        return Response(serializer.data)
+
