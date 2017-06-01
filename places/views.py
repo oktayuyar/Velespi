@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 
-from  places.serializers import PlaceSerializer,CategorySerializer,MediaSerializer,ReviewSerializer
+from  places.serializers import PlaceSerializer,CategorySerializer,MediaSerializer,ReviewSerializer, PlaceNameSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -129,7 +129,7 @@ class PlaceList(APIView):
 
     def get(self, request, format=None):
         places = Place.objects.all()
-        serializer = PlaceSerializer(places, many=True)
+        serializer = PlaceNameSerializer(places, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):

@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 
-from  activities.serializers import ActivitySerializer,ReviewSerializer,MediaSerializer,CategorySerializer
+from  activities.serializers import ActivitySerializer,ReviewSerializer,MediaSerializer,CategorySerializer,ActivityNameSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -138,7 +138,7 @@ class ActivityList(APIView):
     serializer_class = ActivitySerializer
     def get(self, request, format=None):
         activities = Activity.objects.all()
-        serializer = ActivitySerializer(activities, many=True)
+        serializer = ActivityNameSerializer(activities, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):

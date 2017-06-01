@@ -5,12 +5,24 @@ from rest_framework import serializers
 
 
 class  PlaceSerializer(serializers.ModelSerializer):
-    category=SerializerMethodField()
+
     class Meta:
         model = Place
         fields = ("id", "user", "name","is_active","coordinates",
                   "category","has_wifi","telephone","description","likes")
 
+
+class  PlaceNameSerializer(serializers.ModelSerializer):
+    user = SerializerMethodField()
+    category=SerializerMethodField()
+
+    class Meta:
+        model = Place
+        fields = ("id", "user", "name","is_active","coordinates",
+                  "category","has_wifi","telephone","description","likes")
+
+    def get_user(self, obj):
+        return str(obj.user.username)
 
     def get_category(self, obj):
         return str(obj.category.name)

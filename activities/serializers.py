@@ -5,15 +5,24 @@ from activities.models import Activity,Review,Media,Category
 
 
 class  ActivitySerializer(serializers.ModelSerializer):
-    category=SerializerMethodField()
     class Meta:
         model = Activity
         fields = ("id", "user", "name","route","description",
                   "is_active","category","telephone","likes")
 
-    def get_category(self,obj):
-        return str(obj.category.name)
+class  ActivityNameSerializer(serializers.ModelSerializer):
+    user = SerializerMethodField()
+    category = SerializerMethodField()
+    class Meta:
+        model = Activity
+        fields = ("id", "user", "name","route","description",
+                  "is_active","category","telephone","likes")
 
+    def get_user(self, obj):
+        return str(obj.user.username)
+
+    def get_category(self, obj):
+        return str(obj.category.name)
 
 class  CategorySerializer(serializers.ModelSerializer):
     class Meta:
