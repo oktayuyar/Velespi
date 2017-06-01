@@ -124,8 +124,9 @@ def like_place(request, place_id):
     return redirect(place.get_absolute_url())
 
 
-
 class PlaceList(APIView):
+    serializer_class = PlaceSerializer
+
     def get(self, request, format=None):
         places = Place.objects.all()
         serializer = PlaceSerializer(places, many=True)

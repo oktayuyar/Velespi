@@ -1,7 +1,11 @@
 from django.http.response import Http404
 
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK,HTTP_400_BAD_REQUEST
+from rest_framework.views import APIView
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import(
@@ -9,10 +13,9 @@ from django.contrib.auth import(
  	logout as auth_logout
 )
 from django.contrib.auth import get_user_model
-from rest_framework.views import APIView
 
 from profiles.forms import RegistrationForm,LoginForm
-from  profiles.serializers import UserSerializer
+from  profiles.serializers import UserSerializer,UserLoginSerializer
 
 def register(request):
     form=RegistrationForm()
@@ -66,6 +69,8 @@ def logout(request):
 User=get_user_model()
 
 class UserList(APIView):
+    serializer_class = UserSerializer
+
     def get(self, request, format=None):
         users = User.objects.all()
         serializer =UserSerializer (users, many=True)
@@ -92,3 +97,16 @@ class UserSingle(APIView):
         user = self.get_object(pk)
         user = UserSerializer(user)
         return Response(user.data)
+
+class UserLogin(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserLoginSerializer
+
+
+    def post(self, request, *args,**kwargs):
+        data=request.data
+        serializer = UserLoginSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+            new_data=serializer.data
+            return Response(new_data, status=HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

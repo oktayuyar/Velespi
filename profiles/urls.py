@@ -10,4 +10,6 @@ urlpatterns = [
     url(r"user/(?P<pk>[0-9]+)$", views.UserSingle.as_view(),
         name="api-review-list"),
 
+    url(r"userlogin$", views.UserLogin.as_view(),
+        name="api-login"),
 ]
