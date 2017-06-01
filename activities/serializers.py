@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.fields import SerializerMethodField, CharField
+from rest_framework.fields import SerializerMethodField
 
 from activities.models import Activity,Review,Media,Category
 
