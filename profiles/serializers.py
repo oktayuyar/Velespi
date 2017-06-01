@@ -2,8 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from rest_framework.fields import CharField, EmailField
-
+from rest_framework.fields import CharField, EmailField,Field
 
 User=get_user_model()
 
@@ -32,21 +31,23 @@ class  UserSerializer(serializers.ModelSerializer):
 
 
 class  UserLoginSerializer(serializers.ModelSerializer):
-    token=CharField(allow_blank=True,read_only=True)
-    username=CharField(label="Kullanıcı Adı",allow_blank=True,required=True)
-    password = serializers.CharField(label="Parola",allow_blank=True,required=True,
+    id = CharField(label="ıd",allow_blank=True, required=True)
+    token=CharField(read_only=True)
+    username=CharField(label="Kullanıcı Adı",required=True)
+    password = serializers.CharField(label="Parola",required=True,
     style={'input_type': 'password'}
     )
     class Meta:
         model = User
         fields = ("id", "username","password","token")
         extra_kwargs={
+            "id":{"write_only" :True},
             "password" :{
                 "write_only" :True}
                }
 
     def validate(self, data):
-        user_obj=None
+        id=data["id"]
         username=data.get("username",None)
         password = data["password"]
 
@@ -66,6 +67,7 @@ class  UserLoginSerializer(serializers.ModelSerializer):
             if not user_obj.check_password(password):
                 raise ValidationError("Yanlış şifre lüften tekrar deneyiniz.")
 
+        data["id"]=user_obj.id
         data["token"]="asfr435AH.asd2332,"
         return data
 

@@ -103,7 +103,7 @@ class UserLogin(APIView):
     serializer_class = UserLoginSerializer
 
 
-    def post(self, request, *args,**kwargs):
+    def post(self, request, format=None,*args,**kwargs):
         data=request.data
         serializer = UserLoginSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
