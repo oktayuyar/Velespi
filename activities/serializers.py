@@ -17,7 +17,6 @@ class  ActivitySerializer(serializers.ModelSerializer):
     def get_category(self,obj):
         return str(obj.category.name)
 
-
     def get_user(self, obj):
         return str(obj.user.username)
 
