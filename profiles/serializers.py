@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField, EmailField
+
 
 User=get_user_model()
 
@@ -31,8 +33,8 @@ class  UserSerializer(serializers.ModelSerializer):
 
 class  UserLoginSerializer(serializers.ModelSerializer):
     token=CharField(allow_blank=True,read_only=True)
-    username=CharField(label="Kullanıcı Adı")
-    password = serializers.CharField(label="Parola",
+    username=CharField(label="Kullanıcı Adı",allow_blank=True,required=True)
+    password = serializers.CharField(label="Parola",allow_blank=True,required=True,
     style={'input_type': 'password'}
     )
     class Meta:
@@ -44,10 +46,25 @@ class  UserLoginSerializer(serializers.ModelSerializer):
                }
 
     def validate(self, data):
-        username = data["username"]
+        user_obj=None
+        username=data.get("username",None)
         password = data["password"]
-        user_obj = User(
-            username=username,
-        )
-        user_obj.set_password(password)
+
+        if not username :
+            raise ValidationError("Kullanıcı adını boş bırakmayınız.")
+
+        user = User.objects.filter(
+            Q (username=username)
+        ).distinct()
+
+        if user.exists()  and user.count()==1:
+            user_obj=user.first()
+        else:
+            raise ValidationError ("Bu kullanıcı adı ile kayıtlı üye bulunmamaktadır.")
+
+        if user_obj:
+            if not user_obj.check_password(password):
+                raise ValidationError("Yanlış şifre lüften tekrar deneyiniz.")
+
+        data["token"]="asfr435AH.asd2332,"
         return data
