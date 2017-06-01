@@ -27,12 +27,24 @@ class  CategorySerializer(serializers.ModelSerializer):
 
 
 class  ReviewSerializer(serializers.ModelSerializer):
+    user = SerializerMethodField()
+    activity = SerializerMethodField()
     class Meta:
         model = Review
         fields = ("id", "user", "activity","comment")
 
 
+    def get_user(self, obj):
+        return str(obj.user.username)
+
+    def get_activity(self, obj):
+        return str(obj.activity.name)
+
 class  MediaSerializer(serializers.ModelSerializer):
+    activity = SerializerMethodField()
     class Meta:
         model = Media
         fields = ("id", "activity","image")
+
+    def get_activity(self, obj):
+        return str(obj.activity.name)
