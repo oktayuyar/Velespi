@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aad7cbac-6f27-4aea-b3dd-703abaefa0d0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/activities/serializers.py" afterPath="$PROJECT_DIR$/activities/serializers.py" />
-    </list>
+    <list default="true" id="aad7cbac-6f27-4aea-b3dd-703abaefa0d0" name="Default" comment="" />
     <ignored path="Velespi.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -442,7 +440,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-3" width="1366" height="771" extended-state="6" />
+    <frame x="0" y="-3" width="1366" height="771" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22230484" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
