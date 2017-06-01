@@ -136,6 +136,7 @@ def like_activity(request, activity_id):
 
 class ActivityList(APIView):
     serializer_class = ActivitySerializer
+
     def get(self, request, format=None):
         activities = Activity.objects.all()
         serializer = ActivitySerializer(activities, many=True)

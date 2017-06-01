@@ -1,13 +1,10 @@
 from rest_framework import serializers
-from rest_framework.fields import SerializerMethodField
-from rest_framework.relations import StringRelatedField
+from rest_framework.fields import SerializerMethodField, CharField
 
-from activities import models
 from activities.models import Activity,Review,Media,Category
 
 
 class  ActivitySerializer(serializers.ModelSerializer):
-    user = SerializerMethodField()
     category=SerializerMethodField()
     class Meta:
         model = Activity
