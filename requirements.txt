@@ -1,6 +1,6 @@
 Django==4.2.24
 Markdown==2.6.8
-Pillow==3.3.0
+Pillow==10.3.0
 django-filter==1.0.2
 djangorestframework==3.6.2
 freeze==1.0.10
